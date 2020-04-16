@@ -7,7 +7,8 @@ from time import sleep
 # Config
 fb_user = 'kybiukybiu@gmail.com'
 fb_pwd = 'skynet20152020'
-fb_cid = 'g.994597937304071'
+# fb_cid = 'g.994597937304071' # Production
+fb_cid = 'g.2833020340148205' # Dev
 web_engine = 'firefox-headless'
 
 if web_engine == 'firefox':
