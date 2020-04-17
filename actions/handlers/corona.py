@@ -6,10 +6,13 @@ line_regex = re.compile('^(\d\d/\d\d/\d\d\d\d) \+(\d+) =(\d+)$')
 
 
 def handle(send_cb: callable, input_m: str) -> bool:
-    if input_m != 'corona hnay':
+    if not input_m in ['corona hnay', 'corona hqua']:
         return False
-    send_cb('hnay co %d ca' % (get_today_new_case()))
-    write_today_data()
+    if input_m == 'corona hnay':
+        send_cb('hnay co %d ca' % (get_today_new_case()))
+        write_today_data()
+    elif input_m == 'corona hqua':
+        send_cb('hqua co them %d ca, tong so la %d' % (get_yesterday_new(), get_yesterday_total()))
     return True
 
 
@@ -18,11 +21,19 @@ def get_total_cases() -> int:
     return int(case_regex.findall(r.text)[0])
 
 
-def get_yesterday_total() -> int:
+def get_yesterday_data() -> list:
     data = parse_data()
     t = datetime.date.today() - datetime.timedelta(days=1)
     t = t.strftime('%d/%m/%Y')
-    return int(data[t][1])
+    return data[t]
+
+
+def get_yesterday_new() -> int:
+    return get_yesterday_data()[0]
+
+
+def get_yesterday_total() -> int:
+    return get_yesterday_data()[1]
 
 
 def parse_data() -> dict:
