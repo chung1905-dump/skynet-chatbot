@@ -1,5 +1,5 @@
 from selenium.webdriver.remote.webdriver import WebDriver
-from actions.handlers import hello
+from actions.handlers import hello, corona
 import re
 
 regex = re.compile('^bleep blop')
@@ -37,7 +37,8 @@ def reply_message(browser: WebDriver, input_text: str) -> WebDriver:
         wb.find_element_by_id('composerInput').send_keys(t)
         wb.find_element_by_css_selector('#composer_form input[type="submit"][name="send"]').click()
 
-    flag = (hello.handle(_send_message, input_text))
+    flag = hello.handle(_send_message, input_text) \
+           or corona.handle(_send_message, input_text)
     if flag:
         _send_message('bleep blop')
     return browser
