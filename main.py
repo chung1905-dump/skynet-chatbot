@@ -4,11 +4,14 @@ from utils import system
 from os import path
 from time import sleep
 
+import sys
+
 # Config
 fb_user = 'kybiukybiu@gmail.com'
 fb_pwd = 'skynet20152020'
-# fb_cid = 'g.994597937304071' # Production
-fb_cid = 'g.2833020340148205' # Dev
+fb_cid = 'g.2833020340148205'  # Dev
+if sys.argv[1:].__len__() and sys.argv[1:][0] == 'prod':
+    fb_cid = 'g.994597937304071'  # Production
 web_engine = 'firefox-headless'
 
 if web_engine == 'firefox':
