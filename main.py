@@ -7,11 +7,14 @@ from time import sleep
 import sys
 
 # Config
+prod_mode = sys.argv[1:].__len__() and sys.argv[1:][0] == 'prod'
 fb_user = 'kybiukybiu@gmail.com'
 fb_pwd = 'skynet20152020'
 fb_cid = 'g.2833020340148205'  # Dev
-if sys.argv[1:].__len__() and sys.argv[1:][0] == 'prod':
+interval_time = 2.5
+if prod_mode:
     fb_cid = 'g.994597937304071'  # Production
+    interval_time = 5
 web_engine = 'firefox-headless'
 
 if web_engine == 'firefox':
@@ -31,6 +34,6 @@ while True:
     messages = facebook.check_message(browser)
     for m in messages:
         facebook.reply_message(browser, m)
-    sleep(2.5)
+    sleep(interval_time)
 
 # browser.quit()
